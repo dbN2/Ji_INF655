@@ -12,10 +12,10 @@ function TodoList({toDoList, toggleCheckbox, deleteTask}){
           <label>
             <input type ="checkbox" 
             checked={todo.completed} 
-            onChange = {() => toggleCheckbox(index)}  //Individual task
+            onChange = {() => toggleCheckbox(index)}  
             />
             {todo.description}   
-            <button type="button" onClick = {() => deleteTask(index)}>
+            <button type="button" onClick = {() => deleteTask(index)}>  //delete task 
             Delete
             </button>
             
@@ -30,7 +30,7 @@ function TodoList({toDoList, toggleCheckbox, deleteTask}){
 function TodoApp() {
 
   const [toDoList, setTodoList] = useState([]);
-  const [showUncompleted, setShowUncompleted] = useState(false);
+  const [showUncompleted, setShowUncompleted] = useState(false); //state variable for toggling display of tasks
 
   function toggleCheckbox(index) {  
     const newTodoList = [...toDoList];
@@ -42,7 +42,7 @@ function TodoApp() {
     setTodoList([...toDoList, {description, completed: false}]); //add new uncompleted todo 
   }
   
-  function deleteTask(index) {
+  function deleteTask(index) {    
     let newTodoList = [];
     for(let x=0; x<toDoList.length; x++){
       if(x!==index) newTodoList.push(toDoList[x]);  //
@@ -50,20 +50,20 @@ function TodoApp() {
     setTodoList(newTodoList);
   }
 
-  const filteredList = showUncompleted ? toDoList.filter((task) => !task.completed): toDoList;
+  const filteredList = showUncompleted ? toDoList.filter((task) => !task.completed): toDoList;  //the list that is displayed
 
   return (
     <div>
       <h1>Tasks</h1>
 
-      <button type="button" onClick= {() => setShowUncompleted(!showUncompleted)}> {(showUncompleted===true)?"Show All Tasks":"Show Uncompleted Tasks"}</button>
+      <button type="button" onClick= {() => setShowUncompleted(!showUncompleted)}> {(showUncompleted===true)?"Show All Tasks":"Show Uncompleted Tasks"}</button> //toggles display of uncompleted tasks
 
       <TodoList toDoList={filteredList} toggleCheckbox={toggleCheckbox} deleteTask={deleteTask} />
       <form onSubmit = {(e) => {
         e.preventDefault();
-        const input = e.target.elements.description;
+        const input = e.target.elements.description;  
         addTodo(input.value);
-        input.value = ''; //clear input
+        input.value = ''; 
       }}
       >
         <input name="description" type="text" />
